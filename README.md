@@ -27,7 +27,7 @@ The following **optional** features are implemented:
 - [x] User can tap a tweet to display a "detailed" view of that tweet
 - [x] User can see embedded image media within the tweet detail view
 - [ ] User can watch embedded video within the tweet
-- [ ] User can open the twitter app offline and see last loaded tweets
+- [x] User can open the twitter app offline and see last loaded tweets
 - [ ] On the Twitter timeline, leverage the CoordinatorLayout to apply scrolling behavior that hides / shows the toolbar.
 - [x] User is using **"Twitter branded" colors and styles**
 - [ ] User can **select "reply" from detail view to respond to a tweet**
