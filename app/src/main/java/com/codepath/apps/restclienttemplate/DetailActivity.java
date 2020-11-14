@@ -1,17 +1,24 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.content.Intent;
 import android.content.res.Configuration;
         import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
         import android.widget.TextView;
+import android.widget.Toast;
 
-        import com.bumptech.glide.Glide;
+import com.bumptech.glide.Glide;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-        import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBar;
         import androidx.appcompat.app.AppCompatActivity;
-        import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
+import butterknife.OnClick;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -80,4 +87,9 @@ public class DetailActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @OnClick(R.id.btnRply)
+     public void reply(){
+        Toast.makeText(this,"hello",Toast.LENGTH_LONG).show();
+     }
 }

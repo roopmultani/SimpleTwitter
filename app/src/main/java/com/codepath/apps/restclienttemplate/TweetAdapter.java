@@ -6,22 +6,28 @@ import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> {
+
+
     Context context;
     List<Tweet> tweets;
+
 
     //Pass in the context and list of tweets
     public TweetAdapter(Context context, List<Tweet> tweets) {
@@ -32,10 +38,16 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
     // for each row , inflate the layout
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, final int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_tweet, parent, false);
-        return new ViewHolder(view);
+        final ViewHolder viewHolder = new ViewHolder(view);
+
+
+        //return new ViewHolder(view);
+        return viewHolder;
     }
+
+
     //bind values based on position of the element
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
@@ -44,7 +56,10 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 
         //Bind the tweet with the view holder
         holder.bind(tweet);
-        holder.tvTime.setText(tweet.getFormattedTimeStamp(tweet.CreatedAt));
+        //holder.tvTime.setText(tweet.getFormattedTimeStamp(tweet.CreatedAt));
+
+        holder.tvTime.setText(tweet.CreatedAt);
+
     }
 
     @Override
@@ -72,6 +87,9 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         TextView tvTime;
         ImageView ivMedia;
         RelativeLayout container;
+        ImageButton btnRetweet;
+        TextView tvRetweetCount;
+        ImageButton btnRply;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,6 +99,9 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvTime = itemView.findViewById(R.id.tvTime);
             ivMedia = itemView.findViewById(R.id.ivMedia);
             container = itemView.findViewById(R.id.container);
+            btnRetweet = itemView.findViewById(R.id.btnRetweet);
+            tvRetweetCount = itemView.findViewById(R.id.tvRetweetCount);
+            btnRply = itemView.findViewById(R.id.btnRply);
         }
 
         public void bind(final Tweet tweet) {
@@ -129,10 +150,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                    context.startActivity(i);
                    }
                 });
-
-
-
-
         }
     }
 }

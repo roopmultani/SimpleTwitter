@@ -2,11 +2,24 @@ package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
 
+import androidx.annotation.Nullable;
+
+import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.RequestParams;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.codepath.asynchttpclient.callback.TextHttpResponseHandler;
 import com.codepath.oauth.OAuthBaseClient;
 import com.github.scribejava.apis.TwitterApi;
 import com.github.scribejava.core.builder.api.BaseApi;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.json.JSONArray;
+
+import java.lang.reflect.Modifier;
+import java.util.Date;
+
+import okhttp3.Headers;
 
 /*
  * 
@@ -20,6 +33,17 @@ import com.github.scribejava.core.builder.api.BaseApi;
  * NOTE: You may want to rename this object based on the service i.e TwitterClient or FlickrClient
  * 
  */
+
+/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
+ * 	  i.e getApiUrl("statuses/home_timeline.json");
+ * 2. Define the parameters to pass to the request (query or body)
+ *    i.e RequestParams params = new RequestParams("foo", "bar");
+ * 3. Define the request method and make a call to the client
+ *    i.e client.get(apiUrl, params, handler);
+ *    i.e client.post(apiUrl, params, handler);
+ */
+
+
 public class TwitterClient extends OAuthBaseClient {
 	public static final BaseApi REST_API_INSTANCE = TwitterApi.instance();
 	public static final String REST_URL = "https://api.twitter.com/1.1"; // Change this, base API URL
@@ -61,14 +85,11 @@ public class TwitterClient extends OAuthBaseClient {
 		client.get(apiUrl, params, handler);
 	}
 
-
-
-	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
-	 * 	  i.e getApiUrl("statuses/home_timeline.json");
-	 * 2. Define the parameters to pass to the request (query or body)
-	 *    i.e RequestParams params = new RequestParams("foo", "bar");
-	 * 3. Define the request method and make a call to the client
-	 *    i.e client.get(apiUrl, params, handler);
-	 *    i.e client.post(apiUrl, params, handler);
-	 */
+	public void publishTweet(String tweetContent, JsonHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("statuses/update.json");
+		// Can specify query string params directly or through RequestParams.
+		RequestParams params = new RequestParams();
+		params.put("status", tweetContent);
+		client.post(apiUrl, params, "", handler);
+	}
 }
